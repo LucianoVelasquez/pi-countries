@@ -1,0 +1,40 @@
+.divMain{
+    display: flex;
+    margin-top: 8px;
+    border-radius: 5px;
+    padding: 20px;
+    background: #3130304c;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.divSec{
+    margin: 20px 0 3px 0;
+}
+
+
+
+.searchMain{
+    display: flex;
+    margin: 15px 0 0 0;
+}
+.searchButt{
+    margin: 0 15px 0 0 ;
+}
+.option{
+    margin-right: 8px;
+}
+.p1{
+    font-size: 14px;
+    margin: 0 5px 0 25px;
+}
+.p2{
+    font-size: 14px;
+    margin: 0 5px 0 25px;
+}
+.p3{
+    font-size: 14px;
+    margin: 0px 5px;
+}
