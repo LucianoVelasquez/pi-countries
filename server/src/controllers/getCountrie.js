@@ -4,7 +4,7 @@ const getCountry = async (req, res) => {
   try {
     const { idPais } = req.params;
     const found = await Country.findAll({
-      where: { id: idPais },
+      where: { id: idPais.toUpperCase() },
       include: [
         {
           model: Activity,
