@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import style from './search.module.css'; 
 
-export default function Search({ handleShowAll,handleSearchid }) {
-
+export default function Search({ handleShowAll,handleSearchid,handleFilter }) {
+  let keyId = 0;
   const [id,setId] = useState('');
-  const {actividades} = useSelector(state=>state);
+  const {allActividades, actividades} = useSelector(state=>state);
 
 
   const handleChange = (e) => {
@@ -24,30 +24,34 @@ export default function Search({ handleShowAll,handleSearchid }) {
 
 
       <div className={style.divSec}>
-        <text className={style.p1}>Continentes:</text>
-          <select>
-            <option value=''>Selecionar</option>
-            <option value='Asia'>Asia</option>
-            <option value='Africa'>Africa</option>
-            <option value='Europe'>Europe</option>
-            <option value='North America'>North America</option>
-            <option value='Oceania'>Oceania</option>
-            <option value='South America'>South America</option>
+        <span className={style.p1}>Continentes:</span>
+
+          <select onChange={handleFilter}>
+            <option value='con.ALL'>Todos</option>
+            <option value='con.Asia'>Asia</option>
+            <option value='con.Africa'>Africa</option>
+            <option value='con.Europe'>Europe</option>
+            <option value='con.North America'>North America</option>
+            <option value='con.Oceania'>Oceania</option>
+            <option value='con.South America'>South America</option>
           </select>
-        <text className={style.p2}>Actividad Turistica:</text>
-          <select>
+
+        <span className={style.p2}>Actividad Turistica:</span>
+          <select onChange={handleFilter}>
             <option>Selecionar</option>
+            {/* <option value='act.ALL'>Todas</option> */}
             {
-            actividades?.map(act=>{
-              return <option value={act.name} key={act.id}>{act.name}</option>
-            })
-          }
+              
+               allActividades?.map(act=>{  //No funciona
+                return <option value={act.name} key={keyId++}>{act.name}</option>
+              })
+            }
           </select>
       </div>
 
       <div>
-        <text className={style.p3}>Ordenar por:</text>
-        <select className={style.option}>
+        <span className={style.p3}>Ordenar por:</span>
+        <select className={style.option} onChange={handleFilter}>
           <option >Selecionar</option>
           <option value='asc'>Asendente</option>
           <option value='des'>Desendente</option>

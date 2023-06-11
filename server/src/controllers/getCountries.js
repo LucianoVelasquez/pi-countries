@@ -1,4 +1,4 @@
-const { Country } = require("../db.js");
+const { Country,Activity } = require("../db.js");
 
 const getCountries = async (req, res) => {
   try {
@@ -8,6 +8,11 @@ const getCountries = async (req, res) => {
         
       const found = await Country.findOne({
         where: { id: name.toUpperCase() },
+        include:[{
+                model: Activity,
+                attributes:['name'],
+                through: { attributes: [] }
+            }]
       });
 
       if (!found) throw Error("No se encontro el pais indicado.");
@@ -15,7 +20,12 @@ const getCountries = async (req, res) => {
       return res.status(200).json(found);
 
     } else {
-      const allCountris = await Country.findAll();
+      const allCountris = await Country.findAll({include:[{  //Inclui el modelo para poder hacer correctamente el filtro.
+        model: Activity,
+        attributes:['name'],
+        through: { attributes: [] }
+    }]});
+    
       return res.status(200).json(allCountris);
     }
   } catch ({ message }) {

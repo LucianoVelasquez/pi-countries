@@ -1,7 +1,8 @@
 import axios from "axios";
 export const GET_COUNTRIES = "GET_COUNTRIES";
 export const GET_COUNTRIE = "GET_COUNTRIE";
-export const GET_ACTIVITIES = "GET_ACTIVITIES"
+export const GET_ACTIVITIES = "GET_ACTIVITIES";
+export const FILTER_COUNTRIES = "FILTER_COUNTRIES";
 
 export const getCountries = () => {
   return async function (dispatch) {
@@ -28,5 +29,12 @@ export const getActivities = () =>{
     const data = await axios.get(`http://localhost:3001/activities`);
     const activities = data.data;
     dispatch({type: GET_ACTIVITIES, payload: activities});
+  }
+}
+
+export const filterCountries = (value) =>{
+  return {
+    type: FILTER_COUNTRIES,
+    payload: value
   }
 }
