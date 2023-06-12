@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import style from './search.module.css'; 
 
-export default function Search({ handleShowAll,handleSearchid,handleFilter }) {
+export default function Search({ handleOrder,handleSearchid,handleFilter }) {
   let keyId = 0;
   const [id,setId] = useState('');
-  const {allActividades, actividades} = useSelector(state=>state);
+  const {allActividades} = useSelector(state=>state);
 
 
   const handleChange = (e) => {
@@ -17,7 +17,7 @@ export default function Search({ handleShowAll,handleSearchid,handleFilter }) {
 
     <div className={style.divMain}>
       <div className={style.searchMain}>
-        <button className={style.searchButt} onClick={()=> handleShowAll()}>Mostrar todos</button>
+        {/* <button className={style.searchButt} onClick={handleShowAll}>Mostrar todos</button> */}
         <input type="search" onChange={handleChange} value={id}></input>
         <button onClick={()=>{handleSearchid(id); setId('')}}>Search</button>
       </div>
@@ -37,12 +37,10 @@ export default function Search({ handleShowAll,handleSearchid,handleFilter }) {
           </select>
 
         <span className={style.p2}>Actividad Turistica:</span>
-          <select onChange={handleFilter}>
-            <option>Selecionar</option>
-            {/* <option value='act.ALL'>Todas</option> */}
+          <select onChange={handleFilter} value='Default' >
+            <option value='Default'>Selecionar</option>
             {
-              
-               allActividades?.map(act=>{  //No funciona
+               allActividades?.map(act=>{
                 return <option value={act.name} key={keyId++}>{act.name}</option>
               })
             }
@@ -51,11 +49,11 @@ export default function Search({ handleShowAll,handleSearchid,handleFilter }) {
 
       <div>
         <span className={style.p3}>Ordenar por:</span>
-        <select className={style.option} onChange={handleFilter}>
-          <option >Selecionar</option>
+        <select className={style.option} onChange={handleOrder}>
+          <option value='default'>Selecionar</option>
           <option value='asc'>Asendente</option>
           <option value='des'>Desendente</option>
-          <option value='population'>Poblacion</option>
+          <option value='popu'>Poblacion</option>
         </select>
       </div>
     </div>
