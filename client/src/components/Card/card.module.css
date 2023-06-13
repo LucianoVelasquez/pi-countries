@@ -22,6 +22,7 @@
 }
 .cardImg {
   width: 220px;
+  max-height: 225px;
   margin: 8px 0 8px 0;
   border-radius: 3px;
 }

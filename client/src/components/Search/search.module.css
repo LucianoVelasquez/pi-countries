@@ -14,8 +14,12 @@
     margin: 20px 0 3px 0;
 }
 
-
-
+.divActi{
+    display: flex;
+    margin: 15px 0px 0px 0px;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .searchMain{
     display: flex;
     margin: 15px 0 0 0;
@@ -32,9 +36,14 @@
 }
 .p2{
     font-size: 14px;
-    margin: 0 5px 0 25px;
+    margin: 0px 5px 0 5px;
 }
 .p3{
     font-size: 14px;
     margin: 0px 5px;
 }
+.buttActi{
+    font-size: 11px;
+    margin: 0px 5px 0 5px;
+}
+

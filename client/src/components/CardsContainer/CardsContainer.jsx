@@ -15,6 +15,7 @@ export default function CardsContainer({currentCountries}) {
               bandera={pais.flags}
               name={pais.name}
               continente={pais.continents}
+              id={pais.id}
               key={idKey++}
             />
           );

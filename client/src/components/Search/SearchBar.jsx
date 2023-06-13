@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import style from './search.module.css'; 
+import ButtonE from './Buttons-Order/buttonE';
+import ButtonC from './Butons-Continents/buttonC'
 
-export default function Search({ handleOrder,handleSearchid,handleFilter }) {
+export default function Search({ hanldeClickOrder,handleSearchid,handleFilter }) {
   let keyId = 0;
   const [id,setId] = useState('');
-  const {allActividades} = useSelector(state=>state);
-
+  const { allActividades } = useSelector(state=>state);
 
   const handleChange = (e) => {
     setId(e.target.value);
@@ -17,7 +18,6 @@ export default function Search({ handleOrder,handleSearchid,handleFilter }) {
 
     <div className={style.divMain}>
       <div className={style.searchMain}>
-        {/* <button className={style.searchButt} onClick={handleShowAll}>Mostrar todos</button> */}
         <input type="search" onChange={handleChange} value={id}></input>
         <button onClick={()=>{handleSearchid(id); setId('')}}>Search</button>
       </div>
@@ -25,37 +25,24 @@ export default function Search({ handleOrder,handleSearchid,handleFilter }) {
 
       <div className={style.divSec}>
         <span className={style.p1}>Continentes:</span>
-
-          <select onChange={handleFilter}>
-            <option value='con.ALL'>Todos</option>
-            <option value='con.Asia'>Asia</option>
-            <option value='con.Africa'>Africa</option>
-            <option value='con.Europe'>Europe</option>
-            <option value='con.North America'>North America</option>
-            <option value='con.Oceania'>Oceania</option>
-            <option value='con.South America'>South America</option>
-          </select>
-
-        <span className={style.p2}>Actividad Turistica:</span>
-          <select onChange={handleFilter} value='Default' >
-            <option value='Default'>Selecionar</option>
-            {
-               allActividades?.map(act=>{
-                return <option value={act.name} key={keyId++}>{act.name}</option>
-              })
-            }
-          </select>
+          <ButtonC handleFilter={handleFilter}></ButtonC>
       </div>
 
       <div>
         <span className={style.p3}>Ordenar por:</span>
-        <select className={style.option} onChange={handleOrder}>
-          <option value='default'>Selecionar</option>
-          <option value='asc'>Asendente</option>
-          <option value='des'>Desendente</option>
-          <option value='popu'>Poblacion</option>
-        </select>
+        <ButtonE hanldeClickOrder={hanldeClickOrder}></ButtonE>
       </div>
+
+      <div className={style.divActi}>
+        <span className={style.p2}>Actividad Turistica:</span>
+            {
+              allActividades.length < 1 ? <span className={style.p2}>No hay actividades disponibles</span>:
+               allActividades.map(act=>{
+                return <button className={style.buttActi} id={act.name} key={keyId++} onClick={(e)=>handleFilter(e)}>{act.name}</button>
+              })
+            } 
+      </div>
+
     </div>
   );
 }

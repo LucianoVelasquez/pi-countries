@@ -25,57 +25,40 @@ export default function Home() {
   //
 
 
-
-
   useEffect(() => {
-    dispatch(getCountries());
+    dispatch(getCountries())
     dispatch(getActivities());
   }, []);
 
-  const handleOrder = (e) => { //Ver clase de Selene
-    const value = e.target.value;
-    value !== 'default'? 
-    dispatch(orderCountries(value)) : '';
+  const hanldeClickOrder = (e) => {
+    const value = e.target.id;
+    console.log(e);
+    dispatch(orderCountries(value));
     setCurrentPage(1)
     setOrder(`Ordenado: ${value}`); //Sirve para que se renderize el componente y muestre correctamente el orden de las cartas.
   };
+
   const handleSearchid = (id) => {
     dispatch(getCountrie(id));
     setCurrentPage(1)
   };
 
-  const handleFilter = (e) =>{
-    const value = e.target.value;
-    value !== 'Default' ? dispatch(filterCountries(value)) : '';
-    
+  //
+  const handleFilter = (e) =>{ 
+    const value = e.target.id;
+    dispatch(filterCountries(value))
     setCurrentPage(1)
   }  
 
-
-
-
-
   return (
     <>
-      <SearchBard
-        handleOrder={handleOrder}
-        handleSearchid={handleSearchid}
-        handleFilter={handleFilter}
-      />
+      <SearchBard hanldeClickOrder={hanldeClickOrder} handleSearchid={handleSearchid} handleFilter={handleFilter}/>
 
-      <Paginado
-        countriesPerPage={countriesPerPage}
-        paises={paises.length}
-        paginado={paginado}
-      ></Paginado>
+      <Paginado countriesPerPage={countriesPerPage} paises={paises.length} paginado={paginado}/>
 
       <CardsContainer currentCountries={currentCountries} />
 
-      <Paginado
-        countriesPerPage={countriesPerPage}
-        paises={paises.length}
-        paginado={paginado}
-      ></Paginado>
+      <Paginado countriesPerPage={countriesPerPage} paises={paises.length} paginado={paginado}/>
     </>
   );
 }

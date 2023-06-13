@@ -4,9 +4,9 @@ import { GET_COUNTRIES,GET_COUNTRIE, GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNT
 const initialState = {
   dataPaises: [],
   allPaises: [],
+  paisDetail: [],
   actividades: [],
   allActividades: [],
-  currentContry: [''],
 };
 
 export default function reducer(state = initialState, action) {
@@ -20,7 +20,7 @@ export default function reducer(state = initialState, action) {
     case GET_COUNTRIE:
         return{
           ...state,
-          dataPaises: action.payload
+          dataPaises: action.payload,
         } 
     case GET_ACTIVITIES:
       return{
@@ -35,16 +35,26 @@ export default function reducer(state = initialState, action) {
       let newActis = [];
 
       if(action.payload.includes('con.')){
+
         conFilter = action.payload === 'con.ALL' ?
          paises: 
          paises.filter(pais => pais.continents === action.payload.split(".")[1]);
       
          actiFilter = conFilter.filter((e) => e.Activities.length >= 1); ///////Filtrado de actividades
-         actiFilter.forEach(e=> newActis.push(e.Activities[0]) );
+
+         action.payload === 'con.ALL' ?
+         newActis = state.actividades : actiFilter.forEach(e=>{
+          for (let i = 0; i < e.Activities.length; i++) {
+            newActis.push(e.Activities[i])
+          }  
+         });
+         
       }else{
+        
          conFilter = 
           paises.filter((country)=>country.Activities.find((act)=>act.name == action.payload));
           newActis = state.allActividades;
+          console.log(newActis);
         
       }
     
@@ -52,7 +62,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         dataPaises: conFilter,
         allActividades: newActis, 
-        currentContry: action.payload.split(".")[1],
       }
     case ORDER_COUNTRIES:
       let order;

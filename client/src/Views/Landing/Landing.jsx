@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import {back} from './landing.module.css'
 
+
 export default function Landing(){
     return(
      <div className={back}>
