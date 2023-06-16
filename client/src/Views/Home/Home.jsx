@@ -3,7 +3,7 @@ import SearchBard from "../../components/Search/SearchBar";
 import Paginado from '../../components/Paginado/paginado'
 import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { getActivities, getCountrie, getCountries,filterCountries,orderCountries } from "../../redux/actions";
+import { getActivities, getCountrie, getCountries,filterCountries,orderCountries,filterActivities } from "../../redux/actions";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -26,8 +26,12 @@ export default function Home() {
 
 
   useEffect(() => {
+    
     dispatch(getCountries())
     dispatch(getActivities());
+    setTimeout(()=>{
+      dispatch(filterActivities());
+    },200)
   }, []);
 
   const hanldeClickOrder = (e) => {

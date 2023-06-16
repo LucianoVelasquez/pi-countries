@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { GET_COUNTRIES,GET_COUNTRIE, GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES } from "./actions";
+import { GET_COUNTRIES,GET_COUNTRIE, GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES, FILTER_ACTIVITIES } from "./actions";
 
 const initialState = {
   dataPaises: [],
@@ -7,6 +7,7 @@ const initialState = {
   paisDetail: [],
   actividades: [],
   allActividades: [],
+  AtivitiesFilter:[],
 };
 
 export default function reducer(state = initialState, action) {
@@ -103,12 +104,34 @@ export default function reducer(state = initialState, action) {
         });
       }
       
-      
-      
       return{
         ...state,
         dataPaises: order,
-      }       
+      }   
+
+    case FILTER_ACTIVITIES:
+
+      let aux = '';
+      let newFilter = [];
+      let actividades = state.allActividades.sort((a,b)=>{
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name  > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+      actividades.forEach((a)=>{
+        if(aux !== a.name){
+          aux = a.name
+          newFilter.push(a);
+        }
+      })
+    return{
+      ...state,
+      AtivitiesFilter: newFilter
+    }
     default:
       return { ...state };
   }

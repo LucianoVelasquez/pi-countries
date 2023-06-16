@@ -22,6 +22,7 @@
     border-radius: 10px;
     max-width: 320px;
     max-height: 240px;
+    box-shadow: 0 0 3px rgb(0 0 0 / 46%);
   }
   .seccion{
     display: flex;
@@ -32,7 +33,7 @@
     font-weight: 400;
     font-size: 18px;
     margin: 3px;
-    color: #c8bdbd;
+    color: #1d1d1d;
   }
   .link{
     margin: 5px;

@@ -13,10 +13,15 @@
     font-size: 15px;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #302e2e;
+    /* border: solid 1px #1d1d1d; */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    /* background-color: #302e2e; */
     width: 20px;
     text-align: center;
+    color: #1d1d1d;
+    transition: background-color 0.3s ease-in-out;
 }
 .li:hover{
-    background-color: rgba(255, 255, 255, 0.177);
+    background-color: #548e96;
+    color: white;
 }
