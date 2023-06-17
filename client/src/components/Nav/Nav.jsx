@@ -1,6 +1,6 @@
 import style from "./nav.module.css";
 import { Link } from "react-router-dom";
-import ima from "./logo/travel.png";
+import ima from "./logo/globe.png";
 import create from './logo/edit.png';
 import hom from './logo/hom.png';
 import { useLocation } from "react-router-dom";

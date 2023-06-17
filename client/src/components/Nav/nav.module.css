@@ -12,13 +12,12 @@
 .icon {
   display: flex;
   /* margin-top: 5px; */
-  height: 47px;
+  height: 40px;
+/*   filter: drop-shadow(1px 1px 5px #1d1d1d); */
+  transition:  transform 0.3s ease-in-out;
 }
-.icon2 {
-  display: flex;
-  /* margin-top: 5px; */
-  height: 35px;
-  margin-left: 5px;
+.icon:hover {
+  transform: scale(0.95);
 }
 
 .link {
