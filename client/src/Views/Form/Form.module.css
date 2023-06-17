@@ -1,4 +1,4 @@
-.divMain {
+.divPri {
     border-radius: 15px;
     height: 650px;
     transition: all 0.2s;
@@ -41,62 +41,4 @@
 
 .button{
     margin: 20px 0px 0px 0px;
-}
-.lavels{
-    margin-top: 10px;
-}
-.option{
-    margin-top: 3px;
-    background: #ffffff;
-    max-width: 160px;
-    box-shadow: 1px 0px 8px 0px rgb(29 29 29 / 25%);
-    border: 1px solid #63aeb8;
-    color: #525050;
-    border-radius: 5px;
-} 
-.p{
-    display: flex;
-    font-size: 12px;
-    margin: 2px;
-    border-radius: 5px;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center; 
-    max-width: 190px; 
-}
-.link{
-    font-size: 9px;
-    display: inline-grid;
-    margin-left: 5px;
-    border-radius: 100px;
-    width: 12px;
-    text-align: center;
-    cursor: pointer;
-}
-.link:hover{
-    color: rgb(229, 83, 83);
-}
-.spanError{
-    color: rgb(240, 95, 95);
-    font-size: 12px;
-    font-weight: 400;
-}
-.inputError{
-    border: solid 1px rgb(234, 58, 58);
-    background: #ede7e7;
-    border-radius: 5px;
-    margin-top: 3px;
-    box-shadow: 1px 0px 8px 0px rgb(29 29 29 / 25%);
-    color: #ffffff;
-    padding: 2px 0px 2px 10px;
-}
-.input{
-    background: #ffffff;
-    border-radius: 5px;
-    margin-top: 3px;
-    border: 1px solid #63aeb8 ;
-    box-shadow: 1px 0px 8px 0px rgb(29 29 29 / 25%);
-    color:#525050;
-    padding: 2px 0px 2px 10px;
-    
 }

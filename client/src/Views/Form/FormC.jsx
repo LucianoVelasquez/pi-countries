@@ -3,13 +3,7 @@ import { useSelector } from "react-redux";
 import {setValidation,accesSubmit} from "./validaciones/validaciones";
 import style from "./Form.module.css";
 import axios from 'axios';
-import InputName from "./ComponentsForm/InputName/InputName.jsx";
-import InputDuracion from "./ComponentsForm/InputDuracion/InputDuracion";
-import InputPaises from "./ComponentsForm/InputPaises/InputPaises";
-import InputTemp from "./ComponentsForm/InputTemp/InputTemp";
-import InputDificult from "./ComponentsForm/InputDificult/InputDificult";
-import ShowPaises from "./ComponentsForm/ShowPaises/ShowPaises";
-
+import {InputName,InputDuracion,InputPaises,InputTemp,InputDificult,ShowPaises} from './ComponentsForm/indexFormComponents.js';
 
 
 export default function FormC() {
@@ -63,7 +57,6 @@ export default function FormC() {
       tipo: ''
     })
   }
-
   const hanldeOptions = (e) => {
     const value = e.target.value;
     const id = value.split('.')[1];
@@ -129,7 +122,7 @@ export default function FormC() {
   const handleSubmit = async (e) =>{
     try {
       e.preventDefault();
-      
+
       const endpoint = 'http://localhost:3001/activities';
       const newActiviti = {
         name: data.name,
@@ -158,10 +151,9 @@ export default function FormC() {
 
   return (
    
-    <div className={style.divMain}>
+    <div className={style.divPri}>
       <div className={style.divSec}>
-      <h1>Crea una actividad Turistica</h1>
-
+        <h1>Crea una actividad Turistica</h1>
         <form className={style.styleForm} onSubmit={handleSubmit}>
 
           <div className={style.divOptions}>
