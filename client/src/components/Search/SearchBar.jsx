@@ -9,8 +9,7 @@ export default function Search({ hanldeClickOrder,handleSearchid,handleFilter })
   let keyId = 0;
   const [id,setId] = useState('');
 
-  /* let { allActividades } = useSelector(state=>state);  */
-  const {AtivitiesFilter} = useSelector(state=>state);
+  const {showActivitiesFilter} = useSelector(state=>state);
 
   const handleChange = (e) => {
     setId(e.target.value);
@@ -40,8 +39,8 @@ export default function Search({ hanldeClickOrder,handleSearchid,handleFilter })
         <span className={style.p2}>Actividad Turistica</span>
             {
               
-              AtivitiesFilter.length < 1 ? <span className={style.p2}>No hay actividades disponibles</span>: 
-              AtivitiesFilter.map(act=>{
+              showActivitiesFilter.length < 1 ? <span className={style.p2}>No hay actividades disponibles</span>: 
+              showActivitiesFilter.map(act=>{
                 return <button className={style.buttActi} id={act.name} key={keyId++} onClick={(e)=>handleFilter(e)}>{act.name}</button>
               })
             } 

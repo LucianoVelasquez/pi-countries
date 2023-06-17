@@ -1,18 +1,16 @@
 import axios from "axios";
-export const GET_COUNTRIES = "GET_COUNTRIES";
-export const GET_COUNTRIE = "GET_COUNTRIE";
-export const GET_ACTIVITIES = "GET_ACTIVITIES";
-export const FILTER_COUNTRIES = "FILTER_COUNTRIES";
-export const ORDER_COUNTRIES = "ORDER_COUNTRIES";
-export const POST_ACTIVITIE = "POST_ACTIVITIE";
-export const FILTER_ACTIVITIES = "FILTER_ACTIVITIES";
+import {GET_COUNTRIES,GET_COUNTRIE,GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES,/* POST_ACTIVITIE, */FILTER_ACTIVITIES, } from './Constants/index'
 
 
 export const getCountries = () => {
   return async function (dispatch) {
-    const data = await axios.get("http://localhost:3001/countries");
+    try{
+      const data = await axios.get("http://localhost:3001/countries");
     const countries = data.data;
     dispatch({ type: GET_COUNTRIES, payload: countries });
+    }catch(error){
+      alert(error.message+ ' getCountries');
+    }
   };
 };
 
@@ -23,16 +21,21 @@ export const getCountrie = (id) => {
       const pais = data.data;
       dispatch({ type: GET_COUNTRIE, payload: pais });
     } catch (error) {
-      window.alert('Datos incorrectos');
+      alert('Datos incorrectos');
     }
   };
 };
 
 export const getActivities = () =>{
   return async function(dispatch){
-    const data = await axios.get(`http://localhost:3001/activities`);
-    const activities = data.data;
-    dispatch({type: GET_ACTIVITIES, payload: activities});
+    try {
+      const data = await axios.get(`http://localhost:3001/activities`);
+      const activities = data.data;
+      dispatch({type: GET_ACTIVITIES, payload: activities});
+    } catch (error) {
+      alert(error.message+' getActivities');
+    }
+    
   }
 }
 

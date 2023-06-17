@@ -15,6 +15,7 @@ module.exports = async (Country) => {
         area,
         population,
       } = element;
+
       if (cca3 && name && flags && continents && capital && subregion && area && population){
         await Country.findOrCreate({
           where: {
@@ -33,5 +34,6 @@ module.exports = async (Country) => {
  
   } catch ({ message }) {
     console.log(`Error:${message}`);
+    return res.status(500).json(message);
   }
 };

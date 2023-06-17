@@ -5,8 +5,8 @@ const getActivities = async (req,res) =>{
         const allActivities = await Activity.findAll();
         
         return res.status(200).json(allActivities);
-    } catch ({message}) {
-        res.status(500).json({error: message});
+    } catch (error) {
+        res.status(500).json({error: error.message});
     }
 }
 

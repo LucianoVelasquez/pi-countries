@@ -34,21 +34,21 @@ export default function Home() {
   }, []);
 
   const hanldeClickOrder = (e) => {
-    const value = e.target.id;
-    console.log(e);
-    dispatch(orderCountries(value));
+    const value = e.target.id;//Ejemplo des, asc, popu
+
+    dispatch(orderCountries(value));  
     setCurrentPage(1)
     setOrder(`Ordenado: ${value}`); //Sirve para que se renderize el componente y muestre correctamente el orden de las cartas.
   };
 
   const handleSearchid = (id) => {
-    dispatch(getCountrie(id));
+    dispatch(getCountrie(id)); //Ejemplo ARG, BRA, SWE
     setCurrentPage(1)
   };
 
   //
   const handleFilter = (e) =>{ 
-    const value = e.target.id;
+    const value = e.target.id; //Ejemplo, con.ALL, con.Europe,etc.
     dispatch(filterCountries(value))
     setCurrentPage(1)
   }  
