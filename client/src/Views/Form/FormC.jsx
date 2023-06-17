@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
-import style from "./Form.module.css";
 import { useSelector } from "react-redux";
 import {setValidation,accesSubmit} from "./validaciones/validaciones";
+import style from "./Form.module.css";
 import axios from 'axios';
-///Limpiar formulario.
+import InputName from "./ComponentsForm/InputName/InputName.jsx";
+import InputDuracion from "./ComponentsForm/InputDuracion/InputDuracion";
+import InputPaises from "./ComponentsForm/InputPaises/InputPaises";
+import InputTemp from "./ComponentsForm/InputTemp/InputTemp";
+import InputDificult from "./ComponentsForm/InputDificult/InputDificult";
+import ShowPaises from "./ComponentsForm/ShowPaises/ShowPaises";
+
+
+
 export default function FormC() {
   const [error,setError] = useState({
     name: '',
@@ -37,10 +45,24 @@ export default function FormC() {
   });
   ///
 
-  
   useEffect(()=>{
+
     setValidation(error.tipo,data,error,setError);
+
   },[data])
+
+  const setClear = () =>{
+    setData({...data,name: '',duracion: '',temporada: '',dificultad: 0,paises: [],idPais:[]})
+    setError({
+      name: '',
+      dificultad: "Debes elegir una dificultad",
+      duracion: "",
+      temporada: 'Debes elegir una opcion',
+      idPais: "Debes elegir una opcion",
+      sumbit: false,
+      tipo: ''
+    })
+  }
 
   const hanldeOptions = (e) => {
     const value = e.target.value;
@@ -107,8 +129,8 @@ export default function FormC() {
   const handleSubmit = async (e) =>{
     try {
       e.preventDefault();
+      
       const endpoint = 'http://localhost:3001/activities';
-
       const newActiviti = {
         name: data.name,
         dificultad: data.dificultad,
@@ -121,7 +143,7 @@ export default function FormC() {
         const response = await axios.post(endpoint,newActiviti);
         const message = response.data.message;
         alert(message);
-        setData({...data,name: '',duracion: '',dificultad: 1,paises: []})
+        setClear();
       }else{
         alert('Completa correctamente los campos.')
       }
@@ -144,70 +166,22 @@ export default function FormC() {
 
           <div className={style.divOptions}>
 
-            <label className={style.lavels}>Nombre de actividad</label>
-            <input name="nombre" className={data.name == ''? style.inputError: style.input} value={data.name} type="text" onChange={(e)=>handleData(e)}></input>
-            <span className={style.spanError}>{error.name}</span>
+            <InputName data={data} handleData={handleData} error={error}/>
 
-            <label className={style.lavels}>Duracion</label>
-            <input
-              name="duracion"
-              type="text" 
-              placeholder="cantidad en horas"
-              value={data.duracion}
-              onChange={(e)=>handleData(e)}
-              className={style.input}
-            ></input>
-            <span className={style.spanError}>{error.duracion}</span>
+            <InputDuracion data={data} handleData={handleData} error={error}/>
             
-            <label className={style.lavels}>Paises</label>
-            <select className={style.option} onChange={(e) =>hanldeOptions(e)} >
-              <option value="id1">Selecionar</option>
-               {allPaises?.map((e)=>{
-                return <option key={e.id} title={e.id} value={`p.${e.id}.${e.name}`}>{e.name}</option> 
-              })} 
-            </select>
-            <span className={style.spanError}>{error.idPais}</span>
-            
-            <label className={style.lavels}>Temporada</label>
-            <select className={style.option} name='temporada' onChange={(e)=>handleData(e)} >
-              <option>Seleccionar</option>
-              <option value={'Verano'}>Verano</option>
-              <option value={'Otoño'}>Otoño</option>
-              <option value={'Invierno'}>Invierno</option>
-              <option value={'Primavera'}>Primavera</option>
-            </select>
-            <span className={style.spanError}>{error.temporada}</span>
+            <InputPaises allPaises={allPaises} hanldeOptions={hanldeOptions} error={error} data={data}/>
 
-            <label className={style.lavels}>
-              Dificultad {` "${data.dificultad}" `}
-            </label>
-            <input
-              name="dificultad"
-              type="range"
-              min="0"
-              max="5"
-              step="1"
-              value={data.dificultad}
-              onChange={(e)=>handleData(e)}
-            ></input>
-            <span className={style.spanError}>{error.dificultad}</span>
+            <InputTemp handleData={handleData} error={error} data={data}/>
 
+            <InputDificult data={data} handleData={handleData} error={error}/>
+      
             <button className={style.button}>Crear actividad</button>
 
           </div>
 
-          <div className={style.divTier}>
-            <label className={style.lavels}>Paises donde se agregan</label>
-            <div className={style.divPaises}>
-              {
-                data.paises.map(e=>{
-                  return <button onClick={(event)=>handleClick(event)}  className={style.p} key={e+1}>{e.split('.')[2]}
-                            <span className={style.link} id={e}>X</span>
-                          </button>
-                })
-              }
-            </div>
-          </div>
+          <ShowPaises data={data} handleClick={handleClick}/>
+
         </form>
       </div>
     </div>  

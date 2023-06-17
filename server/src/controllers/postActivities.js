@@ -3,11 +3,14 @@ const { Activity, Country } = require("../db");
 const postActivities = async (req, res) => {
   try {
     const { name, dificultad, duracion, temporada, countri } = req.body;
+    console.log(req.body);
 
     if (!name || !dificultad || !countri || !temporada) {
       return res.status(400).json("Faltan datos");
     }
-
+    
+    if(duracion === '') duracion = 0;
+    
     const validar = await Activity.findOne({
       where: {
         name: name,
@@ -16,8 +19,8 @@ const postActivities = async (req, res) => {
         temporada: temporada,
       },
     });
-
-    if (!validar) {
+    
+    if (!validar ) {
       const found = await Country.findAll({ where: { id: countri } });
 
       const newActivity = await Activity.create({
@@ -35,7 +38,7 @@ const postActivities = async (req, res) => {
     return res.status(400).json("La actividad ya existe");
 
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error });
   }
 };
 
