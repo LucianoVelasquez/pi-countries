@@ -26,7 +26,6 @@ export default function Home() {
 
 
   useEffect(() => {
-    
     dispatch(getCountries())
     dispatch(getActivities());
     setTimeout(()=>{
@@ -58,11 +57,11 @@ export default function Home() {
     <>
       <SearchBard hanldeClickOrder={hanldeClickOrder} handleSearchid={handleSearchid} handleFilter={handleFilter}/>
 
-      <Paginado countriesPerPage={countriesPerPage} paises={paises.length} paginado={paginado}/>
+      <Paginado setCurrentPage={setCurrentPage} countriesPerPage={countriesPerPage} paises={paises.length} paginado={paginado} currentPage={currentPage}/>
 
       <CardsContainer currentCountries={currentCountries} />
 
-      <Paginado countriesPerPage={countriesPerPage} paises={paises.length} paginado={paginado}/>
+      <Paginado setCurrentPage={setCurrentPage} countriesPerPage={countriesPerPage} paises={paises.length} paginado={paginado} currentPage={currentPage}/>
     </>
   );
 }

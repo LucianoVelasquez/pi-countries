@@ -10,7 +10,7 @@
 .li{
     margin: 4px;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 12px;
     border-radius: 5px;
     cursor: pointer;
     /* border: solid 1px #1d1d1d; */
@@ -20,8 +20,27 @@
     text-align: center;
     color: #1d1d1d;
     transition: background-color 0.3s ease-in-out;
+    padding: 3px 3px;
+    user-select: none;
+    
 }
 .li:hover{
-    background-color: #548e96;
-    color: white;
+    background-color: #477c84;  
+    color: #FFFFff
+}
+.current{
+    margin: 4px;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    /* border: solid 1px #1d1d1d; */
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    background-color: #477c84;
+    width: 20px;
+    text-align: center;
+    color: #FFFFff;
+    transition: background-color 0.3s ease-in-out;
+    padding: 3px 3px;
+    user-select: none;
 }

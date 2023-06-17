@@ -22,9 +22,10 @@ button{
   text-shadow: 0px 0px 0px #7CACDE;
   box-shadow: 0px 0px 1px #3A454D;
   transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  cursor: pointer;
 }
 button:hover{
-  color: #FFFFFF !important;
+  color: #ffffff !important;
   background: #5D9EA6;
 }
 @media (prefers-color-scheme: light) {

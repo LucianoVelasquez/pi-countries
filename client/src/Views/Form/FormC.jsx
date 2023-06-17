@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import style from "./Form.module.css";
 import { useSelector } from "react-redux";
-import {validation} from "./validaciones/validaciones";
+import {setValidation,accesSubmit} from "./validaciones/validaciones";
 import axios from 'axios';
-
+///Limpiar formulario.
 export default function FormC() {
   const [error,setError] = useState({
     name: '',
-    dificultad: "",
+    dificultad: "Debes elegir una dificultad",
     duracion: "",
     temporada: 'Debes elegir una opcion',
     idPais: "Debes elegir una opcion",
@@ -16,7 +16,7 @@ export default function FormC() {
   })
   const [data,setData] = useState({
   name: '',
-  dificultad: 1,
+  dificultad: 0,
   duracion: '',
   temporada: '',
   paises: [],
@@ -39,7 +39,7 @@ export default function FormC() {
 
   
   useEffect(()=>{
-    validation(error.tipo,data,error,setError);
+    setValidation(error.tipo,data,error,setError);
   },[data])
 
   const hanldeOptions = (e) => {
@@ -57,6 +57,7 @@ export default function FormC() {
   const handleData = (e) =>{
     const tipo = e.target.name;
     const value = e.target.value;
+    console.log(tipo);
     e.preventDefault();
     switch(tipo){
       case 'nombre':
@@ -75,19 +76,20 @@ export default function FormC() {
           }),
           setError({...error,tipo})
         ) 
-        case 'temporada':
-          return (
-            setData({
-              ...data,
-              temporada: value !== 'Seleccionar'? value : 'Seleccionar',
-            }),
-            setError({...error,tipo})
-          ) 
-        case 'dificultad':
-          return setData({
+      case 'temporada':
+        return (
+          setData({
             ...data,
-            dificultad: value,
-          }) 
+            temporada: value !== 'Seleccionar'? value : 'Seleccionar',
+          }),
+          setError({...error,tipo})
+        ) 
+      case 'dificultad':
+        return setData({
+          ...data,
+          dificultad: value,
+        },
+        setError({...error,tipo})) 
       default:
         return;
     }
@@ -100,11 +102,12 @@ export default function FormC() {
       paises: data.paises.filter(pais=> pais !== e.target.id),
       idPais: data.idPais.filter(id=> id !== paisId)
     })
+    setError({...error,tipo:"pais"});
   }
   const handleSubmit = async (e) =>{
     try {
       e.preventDefault();
-    const endpoint = 'http://localhost:3001/activities';
+      const endpoint = 'http://localhost:3001/activities';
 
       const newActiviti = {
         name: data.name,
@@ -113,14 +116,14 @@ export default function FormC() {
         temporada: data.temporada,
         countri: data.idPais
       } 
-
-      if(error.duracion <= 6){
+      
+      if(accesSubmit(error)){
         const response = await axios.post(endpoint,newActiviti);
         const message = response.data.message;
         alert(message);
-        setData({...data,name: '',duracion: '',dificultad: 1})
+        setData({...data,name: '',duracion: '',dificultad: 1,paises: []})
       }else{
-        alert('No se pueden superar las 6 horas.')
+        alert('Completa correctamente los campos.')
       }
       
 
@@ -132,18 +135,18 @@ export default function FormC() {
   }
 
   return (
+   
     <div className={style.divMain}>
-      <h1>Crea una actividad Turistica</h1>
-
       <div className={style.divSec}>
+      <h1>Crea una actividad Turistica</h1>
 
         <form className={style.styleForm} onSubmit={handleSubmit}>
 
           <div className={style.divOptions}>
-            <label className={style.lavels}>Nombre de actividad</label>
-            <input name="nombre" className={data.name == ''? style.inputError: ''} value={data.name} type="text" onChange={(e)=>handleData(e)}></input>
-            <span className={style.spanError}>{error.name}</span>
 
+            <label className={style.lavels}>Nombre de actividad</label>
+            <input name="nombre" className={data.name == ''? style.inputError: style.input} value={data.name} type="text" onChange={(e)=>handleData(e)}></input>
+            <span className={style.spanError}>{error.name}</span>
 
             <label className={style.lavels}>Duracion</label>
             <input
@@ -152,10 +155,10 @@ export default function FormC() {
               placeholder="cantidad en horas"
               value={data.duracion}
               onChange={(e)=>handleData(e)}
+              className={style.input}
             ></input>
             <span className={style.spanError}>{error.duracion}</span>
-
-
+            
             <label className={style.lavels}>Paises</label>
             <select className={style.option} onChange={(e) =>hanldeOptions(e)} >
               <option value="id1">Selecionar</option>
@@ -164,26 +167,7 @@ export default function FormC() {
               })} 
             </select>
             <span className={style.spanError}>{error.idPais}</span>
-
-            <button className={style.button}>Crear actividad</button>
             
-          </div>
-
-          <div className={style.divTier}>
-            <label className={style.lavels}>
-              Dificultad {` "${data.dificultad}" `}
-            </label>
-            <input
-              name="dificultad"
-              type="range"
-              min="1"
-              max="5"
-              step="1"
-              defaultValue={data.dificultad}
-              onChange={(e)=>handleData(e)}
-            ></input>
-            <span className="style.error"></span>
-
             <label className={style.lavels}>Temporada</label>
             <select className={style.option} name='temporada' onChange={(e)=>handleData(e)} >
               <option>Seleccionar</option>
@@ -194,6 +178,25 @@ export default function FormC() {
             </select>
             <span className={style.spanError}>{error.temporada}</span>
 
+            <label className={style.lavels}>
+              Dificultad {` "${data.dificultad}" `}
+            </label>
+            <input
+              name="dificultad"
+              type="range"
+              min="0"
+              max="5"
+              step="1"
+              value={data.dificultad}
+              onChange={(e)=>handleData(e)}
+            ></input>
+            <span className={style.spanError}>{error.dificultad}</span>
+
+            <button className={style.button}>Crear actividad</button>
+
+          </div>
+
+          <div className={style.divTier}>
             <label className={style.lavels}>Paises donde se agregan</label>
             <div className={style.divPaises}>
               {
@@ -204,13 +207,9 @@ export default function FormC() {
                 })
               }
             </div>
-            
           </div>
-
         </form>
-
       </div>
-
-    </div>
+    </div>  
   );
 }
