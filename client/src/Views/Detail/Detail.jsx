@@ -5,11 +5,9 @@ import { getCountrie } from '../../redux/actions';
 import { useEffect } from 'react';
 
 export default function Detail(){
-
   const {id} = useParams();
   const dispatch = useDispatch();
   const { dataPaises } = useSelector((state)=>state);
-  console.log(dataPaises);
 
   useEffect(()=>{
     dispatch(getCountrie(id));

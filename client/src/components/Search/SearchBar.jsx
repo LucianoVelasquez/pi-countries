@@ -9,9 +9,9 @@ export default function Search({ hanldeClickOrder,handleSearchid,handleFilter })
   let keyId = 0;
   const [id,setId] = useState('');
 
-  const {showActivitiesFilter} = useSelector(state=>state);
+  const { showActivitiesFilter } = useSelector(state=>state);
 
-  const handleChange = (e) => {
+  const clearInput = (e) => {
     setId(e.target.value);
   }
 
@@ -19,15 +19,16 @@ export default function Search({ hanldeClickOrder,handleSearchid,handleFilter })
   return (
 
     <div className={style.divMain}>
+
       <div className={style.searchMain}>
-        <input type="search" className={style.input} onChange={handleChange} value={id}></input>
+        <input type="search" className={style.input} onChange={clearInput} value={id}></input>
         <button onClick={()=>{handleSearchid(id); setId('')}}>Search</button>
       </div>
 
 
       <div className={style.divSec}>
         <span className={style.p1}>Continentes</span>
-          <ButtonC handleFilter={handleFilter}></ButtonC>
+        <ButtonC handleFilter={handleFilter}></ButtonC>
       </div>
 
       <div>
@@ -37,8 +38,7 @@ export default function Search({ hanldeClickOrder,handleSearchid,handleFilter })
 
       <div className={style.divActi}>
         <span className={style.p2}>Actividad Turistica</span>
-            {
-              
+            { 
               showActivitiesFilter.length < 1 ? <span className={style.p2}>No hay actividades disponibles</span>: 
               showActivitiesFilter.map(act=>{
                 return <button className={style.buttActi} id={act.name} key={keyId++} onClick={(e)=>handleFilter(e)}>{act.name}</button>

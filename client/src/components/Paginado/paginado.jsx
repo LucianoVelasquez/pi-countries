@@ -1,25 +1,22 @@
 /* eslint-disable react/prop-types */
 import style from "./paginado.module.css";
 
-export default function Paginado({
-  countriesPerPage,
-  paises,
-  paginado,
-  currentPage,
-  setCurrentPage
-}) {
+export default function Paginado({countriesPerPage,paises,paginado,currentPage,setCurrentPage}) {
   const pageNumbers = [];
 
   const handlePage = (e)=>{
-    e.target.id === 'next'? setCurrentPage(currentPage-1): setCurrentPage(currentPage+1);
+    const idInput = e.target.id;
+    idInput === 'next'? setCurrentPage(currentPage-1): setCurrentPage(currentPage+1);
   }
 
   for (let i = 0; i < Math.ceil(paises / countriesPerPage); i++) {
     pageNumbers.push(i);
   }
 
+
   return (
     <div className={style.divMain}>
+      
       <nav>
         <ul className={style.divul}>
           
@@ -30,12 +27,7 @@ export default function Paginado({
 
           {pageNumbers &&
             pageNumbers.map((num) => (
-              <a
-                onClick={() => {
-                  paginado(num + 1);
-                }}
-                key={num}
-              >
+              <a  onClick={() => {paginado(num + 1);}}  key={num}>
                 <li
                   className={currentPage - 1 === num ? style.current : style.li}
                 >

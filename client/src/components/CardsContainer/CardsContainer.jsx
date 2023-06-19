@@ -8,6 +8,7 @@ export default function CardsContainer({currentCountries}) {
 
   return (
     <div className={style.divMain}>
+
       <div className={style.divSec}>
         {currentCountries?.map((pais) => {
           return (
@@ -21,6 +22,7 @@ export default function CardsContainer({currentCountries}) {
           );
         })}
       </div>
+      
     </div>
   );
 }
