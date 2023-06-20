@@ -1,5 +1,5 @@
 import axios from "axios";
-import {GET_COUNTRIES,GET_COUNTRIE,GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES,/* POST_ACTIVITIE, */FILTER_ACTIVITIES, } from './Constants/index'
+import {GET_COUNTRIES,GET_COUNTRIE,GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES, DELETE_ACTIVITIE, FILTER_ACTIVITIES, } from './Constants/index'
 
 
 export const getCountries = () => {
@@ -58,4 +58,16 @@ export const filterActivities = () =>{
     type: FILTER_ACTIVITIES,
     payload: ''
   }
+}
+
+export const removeActivity = (id) =>{
+  return async function (dispatch) {
+    try {
+      const data = await axios.delete(`http://localhost:3001/activities/${id}`);
+      const newActividad = data.data;
+      dispatch({ type: DELETE_ACTIVITIE, payload: newActividad });
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 }

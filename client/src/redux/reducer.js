@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { GET_COUNTRIES,GET_COUNTRIE, GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES, FILTER_ACTIVITIES } from './Constants/index';
+import { GET_COUNTRIES,GET_COUNTRIE, GET_ACTIVITIES,FILTER_COUNTRIES,ORDER_COUNTRIES, FILTER_ACTIVITIES,DELETE_ACTIVITIE } from './Constants/index';
 import { functionOrderCountries,funcrionFilterCountries,functionFilterRepeadActivites } from './Functions/index'
 
 const initialState = {
@@ -51,6 +51,11 @@ export default function reducer(state = initialState, action) {
     return{
       ...state,
       showActivitiesFilter: newFilter
+    }
+    case DELETE_ACTIVITIE:
+
+    return{
+      ...state,
     }
     default:
       return { ...state};

@@ -1,6 +1,7 @@
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import SearchBard from "../../components/Search/SearchBar";
 import Paginado from '../../components/Paginado/paginado'
+import Editing from '../Editing/Editing'
 import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { getActivities, getCountrie, getCountries,filterCountries,orderCountries,filterActivities } from "../../redux/actions";

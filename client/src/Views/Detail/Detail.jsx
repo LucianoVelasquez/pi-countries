@@ -21,12 +21,12 @@ export default function Detail(){
             <img className={style.cardImg} src={dataPaises[0].flags} alt="bandera de un pais."></img>
           </div>
           <div className={style.seccion}>
-            <text className={style.span}>Nombre:{dataPaises[0].name}</text>
-            <text className={style.span}>Continente:{dataPaises[0].continents}</text>
-            <text className={style.span}>Capital:{dataPaises[0].continents}</text>
-            {dataPaises[0].subregion? <text className={style.span}>Subregión:{dataPaises[0].subregion}</text>: ''}
-            {dataPaises[0].area ? <text className={style.span}>Área:{dataPaises[0].area}</text> : ''}
-            <text className={style.span}>Población:{dataPaises[0].population}</text>
+            <span className={style.span}>Nombre:  {dataPaises[0].name}</span>
+            <span className={style.span}>Continente:  {dataPaises[0].continents}</span>
+            <span className={style.span}>Capital:  {dataPaises[0].continents}</span>
+            {dataPaises[0].subregion? <span className={style.span}>Subregión:  {dataPaises[0].subregion}</span>: ''}
+            {dataPaises[0].area ? <span className={style.span}>Área:  {dataPaises[0].area}</span> : ''}
+            <span className={style.span}>Población:  {dataPaises[0].population}</span>
           </div>
           <Link className={style.link} to={'/home'}><button className={style.button}>Volver</button></Link>
       </div>

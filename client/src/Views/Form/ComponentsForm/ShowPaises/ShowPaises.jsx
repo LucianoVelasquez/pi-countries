@@ -9,7 +9,7 @@ class ShowPaises extends Component {
   }
 
   render() {
-		const { data,handleClick } = this.props;
+		const { data,handleClickRemove } = this.props;
     return (
 
       <div className={style.divPri}>
@@ -18,7 +18,7 @@ class ShowPaises extends Component {
           {data.paises.map((e) => {
             return (
               <button
-                onClick={(event) => handleClick(event)}
+                onClick={(event) => handleClickRemove(event)}
                 className={style.p}
                 key={e + 1}
               >

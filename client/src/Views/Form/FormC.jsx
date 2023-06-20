@@ -6,7 +6,9 @@ import axios from 'axios';
 import {InputName,InputDuracion,InputPaises,InputTemp,InputDificult,ShowPaises} from './ComponentsForm/indexFormComponents.js';
 
 
+
 export default function FormC() {
+  
   const [error,setError] = useState({
     name: '',
     dificultad: "Debes elegir una dificultad",
@@ -26,9 +28,8 @@ export default function FormC() {
   })
 
   let { allPaises } = useSelector((state)=>state);
-
   //Ordenamiento
-  allPaises = allPaises.sort((a,b)=>{
+    allPaises = allPaises.sort((a,b)=>{
     if (a.name < b.name) {
       return -1;
     }
@@ -36,13 +37,14 @@ export default function FormC() {
       return 1;
     }
     return 0;
-  });
+  }); 
   ///
 
   useEffect(()=>{
 
     setValidation(error.tipo,data,error,setError);
 
+  
   },[data])
 
   const setClear = () =>{
@@ -58,30 +60,30 @@ export default function FormC() {
     })
   }
   const hanldeOptions = (e) => {
-    const value = e.target.value;
-    const id = value.split('.')[1];
+    const nameCountry = e.target.value;
+    const idCountry = nameCountry.split('.')[1];
+   
     setError({...error,tipo: 'pais'});
-    e.preventDefault();
-    if(!data.paises.find(e=> e === value) && value !== 'id1'){
+    e.preventDefault()
+    if(!data.paises.find(country=> country === nameCountry) && nameCountry !== 'id1'){
       setData({...data,
-        paises: [...data.paises,value],
-        idPais: [...data.idPais,id]}) 
+        paises: [...data.paises,nameCountry],
+        idPais: [...data.idPais,idCountry]}) 
     } 
 
   };
   const handleData = (e) =>{
-    const tipo = e.target.name;
+    const tipoInput = e.target.name;
     const value = e.target.value;
-    console.log(tipo);
-    e.preventDefault();
-    switch(tipo){
+    
+    switch(tipoInput){
       case 'nombre':
         return(
           setData({
             ...data,
             name:value,
           }),
-          setError({...error,tipo})
+          setError({...error,tipo: tipoInput})
         ) 
       case 'duracion':
         return(
@@ -89,7 +91,7 @@ export default function FormC() {
             ...data,
             duracion: value,
           }),
-          setError({...error,tipo})
+          setError({...error,tipo: tipoInput})
         ) 
       case 'temporada':
         return (
@@ -97,26 +99,28 @@ export default function FormC() {
             ...data,
             temporada: value !== 'Seleccionar'? value : 'Seleccionar',
           }),
-          setError({...error,tipo})
+          setError({...error,tipo: tipoInput})
         ) 
       case 'dificultad':
         return setData({
           ...data,
           dificultad: value,
         },
-        setError({...error,tipo})) 
+        setError({...error,tipo: tipoInput})) 
       default:
         return;
     }
 
   }
-  const handleClick = (e) =>{
+  const handleClickRemove = (e) =>{
     e.preventDefault();
     const paisId = e.target.id.split('.')[1];
+
     setData({...data,
       paises: data.paises.filter(pais=> pais !== e.target.id),
       idPais: data.idPais.filter(id=> id !== paisId)
     })
+
     setError({...error,tipo:"pais"});
   }
   const handleSubmit = async (e) =>{
@@ -141,17 +145,16 @@ export default function FormC() {
         alert('Completa correctamente los campos.')
       }
       
-
     } catch (error) {
       alert(error.response.data);
     }
-    
    
   }
 
   return (
    
     <div className={style.divPri}>
+
       <div className={style.divSec}>
         <h1>Crea una actividad Turistica</h1>
         <form className={style.styleForm} onSubmit={handleSubmit}>
@@ -172,10 +175,11 @@ export default function FormC() {
 
           </div>
 
-          <ShowPaises data={data} handleClick={handleClick}/>
+          <ShowPaises data={data} handleClickRemove={handleClickRemove}/>
 
         </form>
       </div>
+      
     </div>  
   );
 }
