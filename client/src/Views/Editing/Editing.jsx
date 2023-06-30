@@ -1,10 +1,9 @@
 import style from './editing.module.css'
 import { useSelector } from "react-redux";
 import CardActivity from './CardActivity/CardActivity';
-
 import { useDispatch } from 'react-redux';
 import { useEffect,useState } from 'react';
-import { removeActivity,getActivities } from '../../redux/actions';
+import { removeActivity,getActivities,preUpdateActivity } from '../../redux/actions';
 
 export default function ActivitiesContainer() {
     const { actividades } = useSelector((state)=>state);
@@ -17,8 +16,13 @@ export default function ActivitiesContainer() {
     },[reload])
    
     const handleRemove = (e) =>{
-        setReload(e.target.id);
-        dispatch(removeActivity(e.target.id));
+      const activityRemoved = e.target.id;
+        setReload(activityRemoved);
+        dispatch(removeActivity(activityRemoved));
+    }
+    const hanldeEditing = (e) =>{
+      const activityEditing = e.target.id;
+      dispatch(preUpdateActivity(activityEditing))
     }
     
     return(
@@ -38,6 +42,7 @@ export default function ActivitiesContainer() {
                 id={acti.id}
                 key={keyId++}
                 handleRemove={handleRemove}
+                hanldeEditing={hanldeEditing}
               />
             );
           })}

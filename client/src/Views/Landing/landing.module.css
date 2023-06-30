@@ -51,13 +51,13 @@
 }
 .but{
     background: #184b50;
-    border: solid 1.2px #d6b46f;
+    /* border: solid 1.2px #d6b46f; */
     border-radius: 3px;
     text-decoration: none;
-    padding: 3px;
+    /* padding: 3px; */
     cursor: pointer;
-    color: white;
-    font-size: 15px
+    color: white !important;
+    font-size: 15px;
 };
 
 a{
@@ -67,9 +67,18 @@ a{
     color: white !important;
     letter-spacing: 9px;
     text-shadow: 1px 1px 85px rgb(0 0 0 / 85%);
+    user-select: none
 }
 
 .but:hover{
 
     background: #1c6169;
+}
+
+@media (max-width:400px){
+    .but{
+        position: fixed;
+        bottom: 24%;
+        left: 39%;
+    }
 }

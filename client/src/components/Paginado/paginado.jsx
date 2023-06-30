@@ -31,7 +31,7 @@ export default function Paginado({countriesPerPage,paises,paginado,currentPage,s
                 <li
                   className={currentPage - 1 === num ? style.current : style.li}
                 >
-                  {num}
+                  {num+1}
                 </li>
               </a>
             ))}

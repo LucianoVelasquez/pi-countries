@@ -7,6 +7,7 @@ const getCountries = require('./getCountries');
 const postActivities = require('./postActivities');
 const getActivities = require('./getActivities');
 const deleteActivities = require('./deleteActivities');
+const putActivities = require('./putActivities');
 
 module.exports = {
     getAllCountries,
@@ -14,5 +15,6 @@ module.exports = {
     getCountries,
     postActivities,
     getActivities,
-    deleteActivities
+    deleteActivities,
+    putActivities
 }

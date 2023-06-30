@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 
-export default function CardActivity({name,dificultad,duracion,temporada,bandera,id,handleRemove}) {
+export default function CardActivity({name,dificultad,duracion,temporada,bandera,id,handleRemove,hanldeEditing}) {
   let keyId = 0;
   
   return (
@@ -32,7 +32,7 @@ export default function CardActivity({name,dificultad,duracion,temporada,bandera
 
           <div className={style.divButt}>
             <button className={style.itemBut} id={id} onClick={handleRemove}>Eliminar</button>
-            <button className={style.itemBut} >Modificar</button>
+            <Link to={'/create'}><button className={style.itemBut} id={id} onClick={hanldeEditing}>Modificar</button></Link>
           </div>
 
       </div>  

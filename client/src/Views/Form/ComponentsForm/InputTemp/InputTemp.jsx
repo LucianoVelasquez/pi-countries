@@ -20,6 +20,7 @@ class InputTemp extends Component {
           className={style.option}
           name="temporada"
           onChange={(e) => handleData(e)}
+          defaultValue={data.temporada}
           value={data.temporada == '' ? ' ': undefined} //Resetea el valor cuando se hace un submit.
         >
           <option>Seleccionar</option>

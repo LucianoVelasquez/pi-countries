@@ -5,7 +5,7 @@ import style from "./cardContainer.module.css";
 export default function CardsContainer({currentCountries}) {
 
   let idKey = 0;
-
+  console.log(currentCountries);
   return (
     <div className={style.divMain}>
 

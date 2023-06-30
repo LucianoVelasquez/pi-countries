@@ -1,7 +1,6 @@
 import CardsContainer from "../../components/CardsContainer/CardsContainer";
 import SearchBard from "../../components/Search/SearchBar";
 import Paginado from '../../components/Paginado/paginado'
-import Editing from '../Editing/Editing'
 import { useEffect,useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
 import { getActivities, getCountrie, getCountries,filterCountries,orderCountries,filterActivities } from "../../redux/actions";
@@ -9,9 +8,10 @@ import { getActivities, getCountrie, getCountries,filterCountries,orderCountries
 export default function Home() {
   const dispatch = useDispatch();
   const paises = useSelector((state) => state.dataPaises);
+  // eslint-disable-next-line no-unused-vars
   const [order,setOrder] = useState('');
 
-  //Paginado
+  ////Paginado
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
   const indexOfLastCountrie = currentPage * countriesPerPage;
@@ -23,9 +23,8 @@ export default function Home() {
   const paginado = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  //
-
-
+  ////
+  
   useEffect(() => {
     dispatch(getCountries())
     dispatch(getActivities());
@@ -42,8 +41,9 @@ export default function Home() {
     setOrder(`Ordenado: ${typeOrder}`); //Sirve para que se renderize el componente y muestre correctamente el orden de las cartas.
   };
 
-  const handleSearchid = (idCountry) => {
-    dispatch(getCountrie(idCountry)); //Ejemplo ARG, BRA, SWE
+  const handleSearchid = (name) => {
+    console.log(name);
+    dispatch(getCountrie(name)); //Ejemplo ARG, BRA, SWE
     setCurrentPage(1)
   };
 

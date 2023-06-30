@@ -2,14 +2,16 @@ const { Activity, Country } = require("../db");
 
 const postActivities = async (req, res) => {
   try {
-    const { name, dificultad, duracion, temporada, countri } = req.body;
+    let { name, dificultad, duracion, temporada, countri } = req.body;
     console.log(req.body);
 
     if (!name || !dificultad || !countri || !temporada) {
       return res.status(400).json("Faltan datos");
     }
     
-    if(duracion === '') duracion = 0;
+    if(duracion == ""){
+      duracion = 0;
+    }
     
     const validar = await Activity.findOne({
       where: {

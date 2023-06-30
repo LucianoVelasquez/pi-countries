@@ -1,14 +1,31 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
 import {setValidation,accesSubmit} from "./validaciones/validaciones";
 import style from "./Form.module.css";
 import axios from 'axios';
 import {InputName,InputDuracion,InputPaises,InputTemp,InputDificult,ShowPaises} from './ComponentsForm/indexFormComponents.js';
+import { clearAfterUpdate,updateActivity } from "../../redux/actions";
 
 
 
 export default function FormC() {
-  
+  const dispatch = useDispatch();
+
+  const navigation = useNavigate();
+
+  let { allPaises,actiEditing } = useSelector((state)=>state);
+  const [data,setData] = useState({
+    id: actiEditing.id !== ''? actiEditing.id : '',
+    name: actiEditing.name !== '' ? actiEditing.name : '',
+    dificultad: actiEditing.dificultad !== 0 ? actiEditing.dificultad : 0,
+    duracion: actiEditing.duracion !== '' ? actiEditing.duracion : '',
+    temporada: actiEditing.temporada !== '' ? actiEditing.temporada :'',
+    paises: actiEditing.idPais.length >= 1?  actiEditing.paises : [],
+    idPais: actiEditing.idPais.length >= 1?  actiEditing.idPais : [],
+    editing: actiEditing.access !== '' ? true : false
+  })
   const [error,setError] = useState({
     name: '',
     dificultad: "Debes elegir una dificultad",
@@ -18,16 +35,6 @@ export default function FormC() {
     sumbit: false,
     tipo: ''
   })
-  const [data,setData] = useState({
-  name: '',
-  dificultad: 0,
-  duracion: '',
-  temporada: '',
-  paises: [],
-  idPais: []
-  })
-
-  let { allPaises } = useSelector((state)=>state);
   //Ordenamiento
     allPaises = allPaises.sort((a,b)=>{
     if (a.name < b.name) {
@@ -41,10 +48,10 @@ export default function FormC() {
   ///
 
   useEffect(()=>{
-
     setValidation(error.tipo,data,error,setError);
-
-  
+    return () =>{
+      dispatch(clearAfterUpdate());
+    }
   },[data])
 
   const setClear = () =>{
@@ -127,24 +134,54 @@ export default function FormC() {
     try {
       e.preventDefault();
 
-      const endpoint = 'http://localhost:3001/activities';
-      const newActiviti = {
+      const typeAction = e.target[5].value; //Id del botton
+
+      if(typeAction === 'create'){
+        const endpoint = 'http://localhost:3001/activities';
+        const newActiviti = {
         name: data.name,
         dificultad: data.dificultad,
         duracion: data.duracion,
         temporada: data.temporada,
         countri: data.idPais
-      } 
+        } 
       
-      if(accesSubmit(error)){
-        const response = await axios.post(endpoint,newActiviti);
-        const message = response.data.message;
-        alert(message);
-        setClear();
+        if(accesSubmit(error)){
+          const response = await axios.post(endpoint,newActiviti);
+          const message = response.data.message;
+          alert(message);
+          setClear();
+          return
+        }else{
+          alert('Completa correctamente los campos.')
+          return
+        }
+
       }else{
-        alert('Completa correctamente los campos.')
+        const dataUpdate = {
+          id: data.id,
+          name: data.name,
+          dificultad: data.dificultad,
+          duracion: data.duracion,
+          temporada: data.temporada,
+          countri: data.idPais
+        }
+        if(accesSubmit(error)){
+          dispatch(updateActivity(dataUpdate)); 
+
+          setTimeout(()=>{
+            navigation('/home');
+          },500)
+
+          return 
+        } else{
+          alert('Completa correctamente los campos.');
+
+          return
+        }
+        
       }
-      
+
     } catch (error) {
       alert(error.response.data);
     }
@@ -156,7 +193,10 @@ export default function FormC() {
     <div className={style.divPri}>
 
       <div className={style.divSec}>
-        <h1>Crea una actividad Turistica</h1>
+        {
+          data.editing? <h1>Edita una actividad Turistica</h1> : <h1>Crea una actividad Turistica</h1> 
+        }
+        
         <form className={style.styleForm} onSubmit={handleSubmit}>
 
           <div className={style.divOptions}>
@@ -171,7 +211,8 @@ export default function FormC() {
 
             <InputDificult data={data} handleData={handleData} error={error}/>
       
-            <button className={style.button}>Crear actividad</button>
+          
+            <button className={style.button} value={data.editing? 'editing': 'create'}>{data.editing? 'Editar actividad' : 'Crear actividad'}</button>
 
           </div>
 

@@ -13,12 +13,12 @@ export default function Landing() {
       </div>
 
       <div className={style.secundary}>
-        <h1 className={style.h1}>Bienvenido</h1>
+        <h1 className={style.h1}>Countries App</h1>
       </div>
 
       <div className={style.divT}>
         <Link /* className={style.but} */ to="/home">
-          <button>Ingresar</button>
+          <button className={style.but}>Ingresar</button>
         </Link>
       </div>
     </div>
