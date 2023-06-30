@@ -190,16 +190,16 @@ export default function FormC() {
 
   return (
    
-    <div className={style.divPri}>
+    <div className={`${style.divPri}`}>
 
       <div className={style.divSec}>
         {
           data.editing? <h1>Edita una actividad Turistica</h1> : <h1>Crea una actividad Turistica</h1> 
         }
         
-        <form className={style.styleForm} onSubmit={handleSubmit}>
+        <form className={`${style.styleForm} max-sm:w-auto`} onSubmit={handleSubmit}>
 
-          <div className={style.divOptions}>
+          <div className={`${style.divOptions} max-sm:ml-2`}>
 
             <InputName data={data} handleData={handleData} error={error}/>
 

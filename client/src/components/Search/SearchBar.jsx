@@ -31,17 +31,17 @@ export default function Search({ hanldeClickOrder,handleSearchid,handleFilter })
         <ButtonC handleFilter={handleFilter}></ButtonC>
       </div>
 
-      <div>
-        <span className={style.p3}>Ordenar por</span>
+      <div className='max-sm:mt-4'>
+        <span className={`${style.p3}`}>Ordenar por</span>
         <ButtonE hanldeClickOrder={hanldeClickOrder}></ButtonE>
       </div>
 
-      <div className={style.divActi}>
+      <div className={`${style.divActi} max-sm:mt-7`}>
         <span className={style.p2}>Actividad Turistica</span>
             { 
               showActivitiesFilter.length < 1 ? <span className={style.p2}>No hay actividades disponibles</span>: 
               showActivitiesFilter.map(act=>{
-                return <button className={style.buttActi} id={act.name} key={keyId++} onClick={(e)=>handleFilter(e)}>{act.name}</button>
+                return <button className={`${style.buttActi} max-sm:mt-2`} id={act.name} key={keyId++} onClick={(e)=>handleFilter(e)}>{act.name}</button>
               })
             } 
       </div>

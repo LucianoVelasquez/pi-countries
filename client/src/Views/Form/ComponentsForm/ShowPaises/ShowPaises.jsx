@@ -12,7 +12,7 @@ class ShowPaises extends Component {
 		const { data,handleClickRemove } = this.props;
     return (
 
-      <div className={style.divPri}>
+      <div className={`${style.divPri} max-sm:mt-1 max-sm:mr-2 max-sm:mb-0 max-sm:ml-8`}>
         <label className={style.lavels}>Paises donde se agregan</label>
         <div className={style.divSec}>
           {data.paises.map((e) => {
